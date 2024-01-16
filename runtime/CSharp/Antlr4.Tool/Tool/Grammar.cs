@@ -385,7 +385,7 @@ namespace Antlr4.Tool
 
         protected virtual void InitTokenSymbolTables()
         {
-            tokenNameToTypeMap["EOF"] = TokenConstants.Eof;
+            tokenNameToTypeMap["EOF"] = TokenConstants.EOF;
 
             // reserve a spot for the INVALID token
             typeToTokenList.Add(null);
@@ -773,7 +773,7 @@ namespace Antlr4.Tool
                 return CharSupport.GetANTLRCharLiteralForChar(ttype);
             }
 
-            if (ttype == TokenConstants.Eof)
+            if (ttype == TokenConstants.EOF)
             {
                 return "EOF";
             }
@@ -819,7 +819,7 @@ namespace Antlr4.Tool
                 return CharSupport.GetANTLRCharLiteralForChar(ttype);
             }
 
-            if (ttype == TokenConstants.Eof)
+            if (ttype == TokenConstants.EOF)
             {
                 return "EOF";
             }
@@ -1201,7 +1201,7 @@ namespace Antlr4.Tool
 
         public virtual void SetTokenForType(int ttype, string text)
         {
-            if (ttype == TokenConstants.Eof)
+            if (ttype == TokenConstants.EOF)
             {
                 // ignore EOF, it will be reported as an error separately
                 return;

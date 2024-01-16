@@ -72,7 +72,7 @@ namespace Antlr4.Automata
                 ATNState blkStart = pair.Item2;
                 ATNState blkStop = pair.Item3;
                 IntervalSet lookahead = analyzer.Look(blkStart, blkStop, PredictionContext.EmptyLocal);
-                if (lookahead.Contains(Antlr4.Runtime.TokenConstants.Epsilon))
+                if (lookahead.Contains(Antlr4.Runtime.TokenConstants.EPSILON))
                 {
                     ErrorType errorType = pair.Item1 is LeftRecursiveRule ? ErrorType.EPSILON_LR_FOLLOW : ErrorType.EPSILON_CLOSURE;
                     g.tool.errMgr.GrammarError(errorType, g.fileName, ((GrammarAST)pair.Item1.ast.GetChild(0)).Token, pair.Item1.name);
@@ -89,7 +89,7 @@ namespace Antlr4.Automata
                     }
 
                     LL1Analyzer analyzer = new LL1Analyzer(atn);
-                    if (analyzer.Look(startState, pair.Item3, PredictionContext.EmptyLocal).Contains(Antlr4.Runtime.TokenConstants.Epsilon)) {
+                    if (analyzer.Look(startState, pair.Item3, PredictionContext.EmptyLocal).Contains(Antlr4.Runtime.TokenConstants.EPSILON)) {
                         g.tool.errMgr.GrammarError(ErrorType.EPSILON_OPTIONAL, g.fileName, ((GrammarAST)pair.Item1.ast.GetChild(0)).Token, pair.Item1.name);
                         goto continueOptionalCheck;
                     }
@@ -637,7 +637,7 @@ namespace Antlr4.Automata
                 ATNState stop = atn.ruleToStopState[r.index];
                 if (stop.NumberOfTransitions > 0) continue;
                 n++;
-                Transition t = new AtomTransition(eofTarget, TokenConstants.Eof);
+                Transition t = new AtomTransition(eofTarget, TokenConstants.EOF);
                 stop.AddTransition(t);
             }
             return n;

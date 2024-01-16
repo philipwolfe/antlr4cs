@@ -31,12 +31,6 @@
         <DefineConstants>$(DefineConstants);NET20;NET20PLUS</DefineConstants>
         <MSTest2>False</MSTest2>
       </PropertyGroup>
-
-      <ItemGroup>
-        <ProjectReference Include="..\Antlr4.Runtime\Antlr4.Runtime.csproj">
-          <SetTargetFramework>TargetFramework=net20</SetTargetFramework>
-        </ProjectReference>
-      </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'net30'">
       <PropertyGroup>

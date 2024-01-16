@@ -270,11 +270,11 @@ namespace Antlr4.Tool
                     {
                         edgeST = stlib.GetInstanceOf("edge");
                         AtomTransition atom = (AtomTransition)edge;
-                        string label = atom.label.ToString();
+                        string label = atom.token.ToString();
                         if (isLexer)
-                            label = "'" + GetEdgeLabel(((char)atom.label).ToString()) + "'";
+                            label = "'" + GetEdgeLabel(((char)atom.token).ToString()) + "'";
                         else if (grammar != null)
-                            label = grammar.GetTokenDisplayName(atom.label);
+                            label = grammar.GetTokenDisplayName(atom.token);
                         edgeST.Add("label", GetEdgeLabel(label));
                     }
                     else if (edge is SetTransition)

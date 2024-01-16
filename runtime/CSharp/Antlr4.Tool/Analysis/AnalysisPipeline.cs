@@ -53,7 +53,7 @@ namespace Antlr4.Analysis
 
                 LL1Analyzer analyzer = new LL1Analyzer(g.atn);
                 IntervalSet look = analyzer.Look(g.atn.ruleToStartState[rule.index], PredictionContext.EmptyLocal);
-                if (look.Contains(TokenConstants.Epsilon))
+                if (look.Contains(TokenConstants.EPSILON))
                 {
                     g.tool.errMgr.GrammarError(ErrorType.EPSILON_TOKEN, g.fileName, ((GrammarAST)rule.ast.GetChild(0)).Token, rule.name);
                 }

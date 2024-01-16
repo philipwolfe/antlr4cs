@@ -81,12 +81,12 @@ namespace Antlr4.Tool
          */
         public virtual BitSet FindOuterMostDecisionStates()
         {
-            BitSet track = new BitSet(atn.states.Count);
-            int numberOfDecisions = atn.NumberOfDecisions;
+            BitSet track = new BitSet(Atn.states.Count);
+            int numberOfDecisions = Atn.NumberOfDecisions;
             for (int i = 0; i < numberOfDecisions; i++)
             {
-                DecisionState decisionState = atn.GetDecisionState(i);
-                RuleStartState startState = atn.ruleToStartState[decisionState.ruleIndex];
+                DecisionState decisionState = Atn.GetDecisionState(i);
+                RuleStartState startState = Atn.ruleToStartState[decisionState.ruleIndex];
                 // Look for StarLoopEntryState that is in any left recursive rule
                 if (decisionState is StarLoopEntryState)
                 {
@@ -163,7 +163,7 @@ namespace Antlr4.Tool
             {
                 ctx.OuterAlternative = predictedAlt;
                 Rule r = g.GetRule(p.ruleIndex);
-                if (atn.ruleToStartState[r.index].isPrecedenceRule)
+                if (Atn.ruleToStartState[r.index].isPrecedenceRule)
                 {
                     int[] alts = stateToAltsMap[p.stateNumber];
                     LeftRecursiveRule lr = (LeftRecursiveRule)g.GetRule(p.ruleIndex);

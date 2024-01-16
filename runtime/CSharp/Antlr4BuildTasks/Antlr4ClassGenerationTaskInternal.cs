@@ -10,11 +10,6 @@ namespace Antlr4.Build.Tasks
     using System.Linq;
     using System.Reflection;
     using System.Text.RegularExpressions;
-#if !NETSTANDARD
-    using RegistryKey = Microsoft.Win32.RegistryKey;
-    using RegistryHive = Microsoft.Win32.RegistryHive;
-    using RegistryView = Microsoft.Win32.RegistryView;
-#endif
     using StringBuilder = System.Text.StringBuilder;
 
     internal class AntlrClassGenerationTaskInternal
@@ -141,93 +136,15 @@ namespace Antlr4.Build.Tasks
             }
         }
 
-        private string JavaHome
-        {
-            get
-            {
-#if !NETSTANDARD
-                string javaHome;
-                if (TryGetJavaHome(RegistryView.Default, JavaVendor, JavaInstallation, out javaHome))
-                    return javaHome;
-
-                if (TryGetJavaHome(RegistryView.Registry64, JavaVendor, JavaInstallation, out javaHome))
-                    return javaHome;
-
-                if (TryGetJavaHome(RegistryView.Registry32, JavaVendor, JavaInstallation, out javaHome))
-                    return javaHome;
-#endif
-
-                if (Directory.Exists(Environment.GetEnvironmentVariable("JAVA_HOME")))
-                    return Environment.GetEnvironmentVariable("JAVA_HOME");
-
-                throw new NotSupportedException("Could not locate a Java installation.");
-            }
-        }
-
-#if !NETSTANDARD
-        private static bool TryGetJavaHome(RegistryView registryView, string vendor, string installation, out string javaHome)
-        {
-            javaHome = null;
-
-            string javaKeyName = "SOFTWARE\\" + vendor + "\\" + installation;
-            using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
-            {
-                using (RegistryKey javaKey = baseKey.OpenSubKey(javaKeyName))
-                {
-                    if (javaKey == null)
-                        return false;
-
-                    object currentVersion = javaKey.GetValue("CurrentVersion");
-                    if (currentVersion == null)
-                        return false;
-
-                    using (var homeKey = javaKey.OpenSubKey(currentVersion.ToString()))
-                    {
-                        if (homeKey == null || homeKey.GetValue("JavaHome") == null)
-                            return false;
-
-                        javaHome = homeKey.GetValue("JavaHome").ToString();
-                        return !string.IsNullOrEmpty(javaHome);
-                    }
-                }
-            }
-        }
-#endif
-
         public bool Execute()
         {
             try
             {
                 string executable = null;
-                if (!UseCSharpGenerator)
-                {
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(JavaExecutable))
-                        {
-                            executable = JavaExecutable;
-                        }
-                        else
-                        {
-                            string javaHome = JavaHome;
-                            executable = Path.Combine(Path.Combine(javaHome, "bin"), "java.exe");
-                            if (!File.Exists(executable))
-                                executable = Path.Combine(Path.Combine(javaHome, "bin"), "java");
-                        }
-                    }
-                    catch (NotSupportedException)
-                    {
-                        // Fall back to using the new code generation tools
-                        UseCSharpGenerator = true;
-                    }
-                }
 
                 if (UseCSharpGenerator)
                 {
-#if NETSTANDARD1_5
-                    string framework = "netstandard1.5";
-                    string extension = ".dll";
-#elif NETSTANDARD2_0
+#if NETSTANDARD2_0
                     string framework = "netstandard2.0";
                     string extension = ".dll";
 #else

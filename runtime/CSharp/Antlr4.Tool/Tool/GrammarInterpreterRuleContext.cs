@@ -24,7 +24,7 @@ namespace Antlr4.Tool
          *  with this context object.  If this node left recursive, the true original
          *  outermost alternative is returned.
          */
-        public override int OuterAlternative
+        public int OuterAlternative
         {
             get
             {

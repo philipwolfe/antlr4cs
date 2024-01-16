@@ -1,16 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard1.5;net40</TargetFrameworks>
+    <TargetFrameworks>net48;net6.0</TargetFrameworks>
     <EnableDefaultNoneItems>False</EnableDefaultNoneItems>
 
     <RootNamespace>Antlr4.Build.Tasks</RootNamespace>
     <AssemblyName>Antlr4BuildTasks</AssemblyName>
 
-    <AssemblyVersion>4.6.0.0</AssemblyVersion>
-    <FileVersion>4.6.7.0</FileVersion>
-    <InformationalVersion>4.6.7-dev</InformationalVersion>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
+    <InformationalVersion>5.0.0.0</InformationalVersion>
     <Description>MSBuild tasks for ANTLR 4 code generation.</Description>
     <Copyright>Copyright © Sam Harwell 2015</Copyright>
     <Company>Tunnel Vision Laboratories, LLC</Company>
@@ -28,8 +27,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
-  <Choose>
-    <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
       <ItemGroup>
         <PackageReference Include="Microsoft.Build.Framework" Version="15.7.179" />
         <PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.7.179" />
@@ -37,24 +34,7 @@
       <ItemGroup>
         <ProjectReference Include="..\Antlr4.Tool\Antlr4.Tool.csproj" />
       </ItemGroup>
-    </When>
-    <When Condition="'$(TargetFramework)' == 'netstandard1.5'">
-      <ItemGroup>
-        <PackageReference Include="Microsoft.Build.Framework" Version="14.3" />
-        <PackageReference Include="Microsoft.Build.Tasks.Core" Version="14.3" />
-      </ItemGroup>
-      <ItemGroup>
-        <ProjectReference Include="..\Antlr4.Tool\Antlr4.Tool.csproj" />
-      </ItemGroup>
-    </When>
-    <When Condition="'$(TargetFramework)' == 'net40'">
-      <ItemGroup>
-        <Reference Include="Microsoft.Build.Framework" />
-        <Reference Include="Microsoft.Build.Tasks.v4.0" />
-        <Reference Include="Microsoft.Build.Utilities.v4.0" />
-      </ItemGroup>
-    </When>
-  </Choose>
+
 
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -90,12 +70,6 @@
     <None Include="Antlr4.CodeGenerator.targets">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\build\CustomDictionary.xml">
-      <Link>CustomDictionary.xml</Link>
-    </CodeAnalysisDictionary>
   </ItemGroup>
 
 </Project>

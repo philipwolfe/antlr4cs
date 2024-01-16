@@ -552,7 +552,7 @@ namespace Antlr4.Analysis
                         }
 
                         GrammarAST root1 = (GrammarAST)adaptor.Nil();
-                        root1.AddChild((ITree)adaptor.Create(TokenConstants.Epsilon, "EPSILON"));
+                        root1.AddChild((ITree)adaptor.Create(TokenConstants.EPSILON, "EPSILON"));
                         root1.DeleteChild(0);
                         return root1;
                     }

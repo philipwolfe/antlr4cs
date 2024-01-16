@@ -83,7 +83,7 @@ namespace Antlr4.Automata
                     else if (t is AtomTransition)
                     {
                         AtomTransition a = (AtomTransition)t;
-                        string label = g.GetTokenDisplayName(a.label);
+                        string label = g.GetTokenDisplayName(a.token);
                         buf.Append("-").Append(label).Append("->").Append(GetStateString(t.target)).Append('\n');
                     }
                     else
